@@ -1,5 +1,8 @@
 from random import random
 
+import Answers as a
+from AbandonedRoad import checkLocations, showDirections, enterVillage, enterCave
+
 
 class Forest:
     def __init__(self):
@@ -18,6 +21,44 @@ class Mountain:
 
     def enter(self):
         print("Entered Mountain")
+
+class Village:
+    def __init__(self):
+        self.name = "Village"
+        self.danger = 0
+        self.obstruction = 0
+
+    def enter(self):
+        print("You can see a village from a far... Approach it?"
+              "\nA: Yes"
+              "\nB: No")
+        result = input(">>> ")
+        if result in a.answersA:
+            enterVillage()
+        elif result in a.answersB:
+            showDirections()
+        else:
+            print("Invalid key.")
+            checkLocations()
+
+class Cave:
+    def __init__(self):
+        self.name = "Cave"
+        self.danger = 0
+        self.obstruction = 0
+
+    def enter(self):
+        print("You can see the entrance to a cave... Enter it?"
+              "\nA: Yes"
+              "\nB: No")
+        result = input(">>> ")
+        if result in a.answersA:
+            enterCave()
+        elif result in a.answersB:
+            showDirections()
+        else:
+            print("Invalid key.")
+            checkLocations()
 
 class Map:
     def __init__(self, rows, cols):

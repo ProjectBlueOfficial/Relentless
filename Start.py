@@ -39,7 +39,7 @@ player = Player
 
 def startGame():
 
-    print("RELENTNESS")
+    print("RELENTLESS")
     pickName()
 
 def pickName():

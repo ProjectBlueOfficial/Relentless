@@ -26,18 +26,6 @@ def init():
 
 def checkLocations():
     time.sleep(1)
-    if player.x == 1 and player.y == 1:
-        print("You can see a village from a far... Approach it?"
-              "\nA: Yes"
-              "\nB: No")
-        result = input(">>> ")
-        if result in a.answersA:
-            enterVillage()
-        elif result in a.answersB:
-            showDirections()
-        else:
-            print("Invalid key.")
-            checkLocations()
     elif player.x == 5 and player.y == 5:
         print("You can see the entrance to a cave... Enter it?"
               "\nA: Yes"
