@@ -1,15 +1,20 @@
 import time
+from math import floor
 
-from Combat import attack, flee, enemyTurn
+import Combat
 
 import Answers as a
 from Enemy import Zombie
+from MapBuilder import Map
 from Start import player
 import Strings as s
 
+map = Map(10, 10)
 
 def init():
     time.sleep(1)
+    player.x = floor(map.rows / 2)
+    player.y = floor(map.cols / 2)
     print("You wake up on an abandoned street... Where do you go next?"
           "\nA: North"
           "\nB: East"
@@ -51,9 +56,9 @@ def checkLocations():
 
 def showDirections():
     print("There is nothing around you... Where do you go next?")
-    if player.y < 5:
+    if player.y < map.rows:
         print("A: North")
-    if player.x < 5:
+    if player.x < map.cols:
         print("B: East")
     if player.y > 1:
         print("C: South")
@@ -65,13 +70,13 @@ def showDirections():
 
 def movePlayer(direction):
     if direction in a.answersA:
-        if player.y == 5:
+        if player.y == map.rows:
             print("You can not go here.")
             checkLocations()
         else:
             goNorth()
     elif direction in a.answersB:
-        if player.x == 5:
+        if player.x == map.cols:
             print("You can not go here.")
             checkLocations()
         else:
@@ -142,7 +147,7 @@ def goDeeper():
     if result in a.answersA:
         setupBattle()
     elif result in a.answersB:
-        if flee():
+        if Combat.flee():
             exitCave()
         else:
             setupBattle()
@@ -166,21 +171,22 @@ def showBattle(enemy):
                                                     "\nD: Flee")
     result = input(">>> ")
     if result in a.answersA:
-        if attack(player, enemy) == s.KILL:
+        if Combat.attack(player, enemy) == s.KILL:
             exitCave()
-        elif attack(player, enemy) == s.DEATH:
+            return None
+        elif Combat.attack(player, enemy) == s.DEATH:
             exitGame()
+            return None
     elif result in a.answersB:
-        parry(enemy)
+        Combat.parry(enemy)
     elif result in a.answersC:
-        useItem(enemy)
+        Combat.useItem(enemy)
     elif result in a.answersD:
-        flee(enemy)
+        Combat.flee()
     else:
         print("Invalid key.")
         showBattle(enemy)
-    enemyTurn(enemy)
-
+    Combat.enemyTurn(enemy)
 
 def exitCave():
     time.sleep(1)

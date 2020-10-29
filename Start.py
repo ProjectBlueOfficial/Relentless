@@ -3,37 +3,39 @@ import Answers as a
 import AbandonedRoad
 
 
+
 class Player:
-    role = None
+    name = ""
+    role = ""
     health = 0
     mana = 0
+    sanity = 0
+    intelligence = 0
     strength = 0
+    gold = 0
     keys = 0
-    x = 3
-    y = 3
+    x = 0
+    y = 0
 
-
-class Warrior:
+class Warrior(Player):
     role = "Warrior"
     health = 21
     mana = 8
     strength = 6
 
-class Mage:
+class Mage(Player):
     role = "Mage"
     health = 11
     mana = 22
     strength = 3
 
-class Marksman:
+class Marksman(Player):
     role = "Marksman"
     health = 15
     mana = 12
     strength = 7
 
-
 player = Player
-
 
 def startGame():
 
@@ -44,11 +46,11 @@ def pickName():
 
     time.sleep(1)
     print("What is your name?")
-    player.name = input(">>> ")
-    print("Welcome " + player.name)
-    pickClass()
+    name = input(">>> ")
+    print("Welcome " + name)
+    pickClass(name)
 
-def pickClass():
+def pickClass(name):
 
     time.sleep(1)
     print("What have you been in the past?"
@@ -56,7 +58,6 @@ def pickClass():
           "\nB: A Mage"
           "\nC: A Marksman")
     origin = input(">>> ")
-    tempName = player.name
     if origin in a.answersA:
         player = Warrior
     elif origin in a.answersB:
@@ -65,8 +66,9 @@ def pickClass():
         player = Marksman
     else:
         print("Invalid key.")
-        pickClass(player)
-    player.name = tempName
+        pickClass(name)
+        return None
+    player.name = name
     print(player.name + ", you are a " + player.role)
     AbandonedRoad.init()
 

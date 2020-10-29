@@ -14,7 +14,7 @@ def attack(caster, target):
         damage = caster.strength * 1.5
     else:
         damage = caster.strength
-
+    print(caster.name + " attacked " + target.name + " for " + str(damage) + " damage!")
     target.health -= damage
     if target.health <= 0:
         print(target.name + " has been killed!")
@@ -27,9 +27,10 @@ def attack(caster, target):
 
 
 def enemyTurn(enemy):
-    if attack(enemy, player) == s.KILL:
+    result = attack(enemy, player)
+    if result == s.KILL:
         AbandonedRoad.exitGame()
-    elif attack(enemy, player) == s.DEATH:
+    elif result == s.DEATH:
         AbandonedRoad.exitCave()
     AbandonedRoad.showBattle(enemy)
 
